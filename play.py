@@ -10,7 +10,7 @@ class InvalidMove(BaseException):
 def run_game():
     print 'running TicTacToe!'
     board = Board()
-    current_player = XMark
+    current_player = OMark
 
     while True:
         board.render()
@@ -25,11 +25,11 @@ def run_game():
         except InvalidMove as e:
             print e.message
         except BoardVictory:
-            print "you won"
+            print "Someone won!"
             board.render()
             break
         except BoardStalemate:
-            print "you stalemated"
+            print "Stalemate...!"
             board.render()
             break
 
@@ -38,11 +38,14 @@ def player_turn(board, mark):
 
     if mark == XMark:
         # SUPER COMPUTER TIME
+        print "Computer's turn!"
+        print
         while True:
             x, y = random.randint(0,2), random.randint(0,2)
 
             try:
                 board.update_board(x, y, mark)
+                print "Computer marked (%s, %s)" % (x, y)
                 break
             except BoardUpdateError:
                 pass

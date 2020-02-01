@@ -73,6 +73,9 @@ class Board(object):
 
         return False
 
-
     def is_stalemate(self):
-        return False
+        for row in self.game_state:
+            if EmptyMark in row:
+                return False
+
+        return True

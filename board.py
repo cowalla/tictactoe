@@ -33,7 +33,6 @@ class Board(object):
         for line in self.game_state:
             print BOARD_LINE_FORMAT % tuple(line)
 
-
     def update_board(self, x, y, mark):
         coordinate_value = self.game_state[x][y]
 
@@ -47,20 +46,26 @@ class Board(object):
         elif self.is_stalemate():
             raise BoardStalemate('You stalemated!')
 
-
     def _get_victory_permutations(self):
+        """
+        all possible ways to win in tictactoe
+        """
+        # rows
         victory_permutations = copy.copy(self.game_state)
+
+        # columns
         victory_permutations += [
             list(v)
             for v in zip(*self.game_state)
         ]
+
+        # crosses
         victory_permutations += [
             [self.game_state[0][0], self.game_state[1][1], self.game_state[2][2]],
-            [self.game_state[2][0], self.game_state[1][1], self.game_state[0][2]]
+            [self.game_state[2][0], self.game_state[1][1], self.game_state[0][2]],
         ]
 
         return victory_permutations
-
 
     def is_victory(self):
         victory_permutations = self._get_victory_permutations()
